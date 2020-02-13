@@ -1,0 +1,41 @@
+extends layout
+
+block content
+  h1= title
+  table
+    thead
+      tr
+        th No
+        th 제목
+        th 작성자
+        th 조회
+        th 추천
+        th 작성일
+    tbody
+      -for (i = article_first; i < (article_first + article_Onepage); i++)
+        if i > article_total-1
+          -i++
+        else
+          -var data=articles[i]
+          tr
+            td= data.id
+            td
+              a(href=`/board/read/${data.id}`)= data.title
+            td= undefined
+            td= data.readnum
+            td= data.recommend
+            td= data.time
+      tr
+        td(colspan="12")
+          if page_group_now > 1
+            a(href=`/board/${page_button_first-page_button_Onepage}`) 이전페이지
+            | 
+          -for (j=page_button_first; j<=page_button_last; j++)
+            if j > page_total
+              -j++
+            else
+              a(href=`/board/${j}`)= j
+              | 
+          if page_group_now < page_group_toal
+            a(href=`/board/${page_button_first+page_button_Onepage}`) 다음페이지
+  button(onclick="location.href='/board/create'") 글쓰기

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1
+    a(href="/board")= title
+  h2= article[0].title
+  button(onclick=`location.href="/board/update/${article[0].id}"`) 글수정
+  form(method="POST" action=`/board/delete_process` style="display : inline;")
+    input(type="hidden" name="id" value=article[0].id)
+    button 글삭제
+  p= article[0].description
+  form(method="POST" action=`/board/read/${article[0].id}/recommend`)
+    input(type="hidden" name="ip" value=ip)
+    button 추천
